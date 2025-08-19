@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Tic Tac Toe</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <main class="app">
+      <header class="app__header">
+        <h1 class="title">Tic Tac Toe</h1>
+        <p class="subtitle">Play against a friend or an unbeatable computer</p>
+      </header>
+
+      <section class="controls" aria-label="Game Controls">
+        <div class="toggle">
+          <input type="checkbox" id="vsCpu" />
+          <label for="vsCpu" class="toggle__label">
+            <span class="toggle__text">Play vs Computer</span>
+          </label>
+        </div>
+
+        <div class="buttons">
+          <button id="newGameBtn" class="btn primary" aria-label="Start a new game">New Game</button>
+          <button id="undoBtn" class="btn" aria-label="Undo last move">Undo</button>
+          <button id="resetScoresBtn" class="btn subtle" aria-label="Reset scores">Reset Scores</button>
+        </div>
+      </section>
+
+      <section class="scoreboard" aria-label="Scoreboard">
+        <div class="score x">X <span id="xScore">0</span></div>
+        <div class="score draw">Draws <span id="draws">0</span></div>
+        <div class="score o">O <span id="oScore">0</span></div>
+      </section>
+
+      <section class="board" role="grid" aria-label="Tic Tac Toe board" aria-live="polite">
+        <button class="cell" id="cell-0" role="gridcell" aria-label="Row 1 Column 1" data-index="0"></button>
+        <button class="cell" id="cell-1" role="gridcell" aria-label="Row 1 Column 2" data-index="1"></button>
+        <button class="cell" id="cell-2" role="gridcell" aria-label="Row 1 Column 3" data-index="2"></button>
+        <button class="cell" id="cell-3" role="gridcell" aria-label="Row 2 Column 1" data-index="3"></button>
+        <button class="cell" id="cell-4" role="gridcell" aria-label="Row 2 Column 2" data-index="4"></button>
+        <button class="cell" id="cell-5" role="gridcell" aria-label="Row 2 Column 3" data-index="5"></button>
+        <button class="cell" id="cell-6" role="gridcell" aria-label="Row 3 Column 1" data-index="6"></button>
+        <button class="cell" id="cell-7" role="gridcell" aria-label="Row 3 Column 2" data-index="7"></button>
+        <button class="cell" id="cell-8" role="gridcell" aria-label="Row 3 Column 3" data-index="8"></button>
+      </section>
+
+      <section class="status" aria-live="polite" aria-atomic="true">
+        <p id="statusText">X's turn</p>
+      </section>
+
+      
+    </main>
+
+    <script src="index.js"></script>
+  </body>
+  </html>
+
