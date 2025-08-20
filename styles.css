@@ -8,6 +8,9 @@
   --x: #60a5fa;
   --o: #f472b6;
   --win: #34d399;
+  --hint-purple: #8b5cf6;
+  --hint-purple-dark: #7c3aed;
+  --hint-text: #f3e8ff;
 }
 
 * {
@@ -90,6 +93,16 @@ body {
 
 .btn.subtle {
   opacity: 0.9;
+}
+
+.btn.hint {
+  background: linear-gradient(180deg, var(--hint-purple), var(--hint-purple-dark));
+  color: var(--hint-text);
+  border: none;
+}
+
+.btn.hint:hover {
+  filter: brightness(1.1);
 }
 
 .toggle {
@@ -203,6 +216,11 @@ body {
 .cell.win {
   background: radial-gradient(160px 140px at 90% 90%, rgba(52, 211, 153, 0.2), rgba(17, 27, 52, 0.9));
   border-color: rgba(52, 211, 153, 0.6);
+}
+
+.cell.hint {
+  box-shadow: 0 0 0 3px #facc15 inset, 0 0 10px #facc15;
+  border-color: #facc15;
 }
 
 .status {

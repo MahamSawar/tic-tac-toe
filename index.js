@@ -4,6 +4,7 @@
   const vsCpuToggle = document.getElementById('vsCpu');
   const newGameBtn = document.getElementById('newGameBtn');
   const undoBtn = document.getElementById('undoBtn');
+  const hintBtn = document.getElementById('hintBtn');
   const resetScoresBtn = document.getElementById('resetScoresBtn');
   const xScoreEl = document.getElementById('xScore');
   const oScoreEl = document.getElementById('oScore');
@@ -28,6 +29,8 @@
     vsCpu: false,
     gameOver: false,
   };
+
+  let hintTimeout = null;
 
   function saveScores() {
     try {
@@ -65,7 +68,8 @@
     state.xIsNext = true;
     state.moveHistory = [];
     state.gameOver = false;
-    cells.forEach(c => c.classList.remove('win'));
+    if (hintTimeout) clearTimeout(hintTimeout);
+    cells.forEach(c => c.classList.remove('win', 'hint'));
     renderBoard();
     setStatus("X's turn");
   }
@@ -107,6 +111,11 @@
 
   function makeMove(index) {
     if (state.gameOver || state.board[index]) return;
+    if (hintTimeout) {
+      clearTimeout(hintTimeout);
+      hintTimeout = null;
+    }
+    cells.forEach(c => c.classList.remove('hint'));
     const player = state.xIsNext ? 'X' : 'O';
     state.board[index] = player;
     state.moveHistory.push(index);
@@ -135,11 +144,26 @@
       }
     }
     state.gameOver = false;
-    cells.forEach(c => c.classList.remove('win'));
+    cells.forEach(c => c.classList.remove('win', 'hint'));
     state.xIsNext = true;
     if (state.moveHistory.length % 2 === 1) state.xIsNext = false;
     renderBoard();
     setStatus(`${state.xIsNext ? 'X' : 'O'}'s turn`);
+  }
+
+  function showHint() {
+    if (state.gameOver) return;
+    const player = state.xIsNext ? 'X' : 'O';
+    const best = findBestMove(state.board, player);
+    if (best.index === -1 || state.board[best.index]) return;
+    if (hintTimeout) clearTimeout(hintTimeout);
+    cells.forEach(c => c.classList.remove('hint'));
+    const cell = cells[best.index];
+    cell.classList.add('hint');
+    hintTimeout = setTimeout(() => {
+      cell.classList.remove('hint');
+      hintTimeout = null;
+    }, 1500);
   }
 
   // Minimax AI (unbeatable)
@@ -204,6 +228,7 @@
 
   newGameBtn.addEventListener('click', startNewGame);
   undoBtn.addEventListener('click', undoLastMove);
+  hintBtn.addEventListener('click', showHint);
   resetScoresBtn.addEventListener('click', () => {
     state.scores = { X: 0, O: 0, D: 0 };
     xScoreEl.textContent = 0;
